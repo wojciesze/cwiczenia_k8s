@@ -88,7 +88,7 @@ EOF
 ### CronJob
 1. Utwórz cronjob w następujący sposób:
 ```shell
-k create cronjob db-backup --image=busybux --schedule='0 1 * * 0' -- /scripts/db_backup.sh
+k create cronjob db-backup --image=busybox --schedule='0 1 * * 0' -- /scripts/db_backup.sh
 ```
 2. Sprawdź czy czy został poprawnie dodany, poprzez: `k get cronjob db-backup` 
 3. Zobacz jego definicję YAML poprzez: `kubectl get cronjob db-backup -o ...` (usupełnij kropki, właściwym formatem) 
