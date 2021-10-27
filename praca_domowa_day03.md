@@ -95,5 +95,5 @@ k create cronjob db-backup --image=busybux --schedule='0 1 * * 0' -- /scripts/db
 4. Wykonaj edycję tego joba poprzez `kubectl edit cronjob db-backup` tak żeby wykonywał się 30 min po 1 zamiast 1:00
 5. Odpal 'ad hoc' db backup poprzez utworzenie joba z cronJoba:
 ```shell
-kubectl create job --from=cronjob/db-backup
+kubectl create job <awesome job name> --from=cronjob/db-backup
 ```
