@@ -9,14 +9,6 @@ sed -i 's/index\.html/index.png/' /etc/nginx/conf.d/default.conf
 ```shell
 kubectl create cm nginx-addon --from-file 40-change-index.sh
 ```
-3. Pobierz hasło do docker-registry poprzez:
-```shell
-kubectl get cm -n global haslo -o json | jq -r .data.haslo
-```
-4. I wykorzstaj je tutaj:
-```shell
-kubectl create secret docker-registry docker-conf --docker-username=trening --docker-password=<haslo z poprzedniego kroku> --docker-email=szkolenie@exitcode.xyz --docker-server=registry.at.exitcode.xyz
-```
 4. Do swojego namespace wrzuć następujący deployment, podmiejając `[trener] Moj pierwszy QR kod` na coś innego. Zapisz do dowolnego pliku i potem: `kubectl apply ...`
 ```yaml
 apiVersion: apps/v1
@@ -45,12 +37,13 @@ spec:
           name: nginx-addon
           defaultMode: 0755
       initContainers:
-      - image: registry.at.exitcode.xyz/qrgen
+      - image: python:3
         name: qr-gen
         command:
         - sh
         - -c
         - |
+          pip install pillow qrcode
           qr "[trener] Moj pierwszy QR kod" > /qr/index.png
         volumeMounts:
         - name: empty-vol
