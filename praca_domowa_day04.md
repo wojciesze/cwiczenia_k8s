@@ -27,8 +27,6 @@ spec:
       labels:
         app: qr-app
     spec:
-      imagePullSecrets:
-      - name: docker-conf
       volumes:
       - name: empty-vol
         emptyDir: {}
